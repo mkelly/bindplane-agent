@@ -8,7 +8,7 @@ on:
 
 jobs:
   build_linux:
-    runs-on: mkelly-runner
+    runs-on: self-hosted
     steps:
       - name: Checkout Sources
         uses: actions/checkout@v3
