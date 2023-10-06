@@ -7,6 +7,22 @@ on:
   pull_request:
 
 jobs:
+  build_linux:
+    runs-on: mkelly-runner
+    steps:
+      - name: Checkout Sources
+        uses: actions/checkout@v3
+      - name: Setup Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: "1.20"
+          check-latest: true
+      - name: Build
+        run: make build-linux
+      - name: Scan Third Party Dependency Licenses
+        run: |
+          go install github.com/uw-labs/lichen@v0.1.7
+          lichen --config=./license.yaml $(find dist/collector_* dist/updater_*)
   build_darwin:
     runs-on: self-hosted
     steps:
